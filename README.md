@@ -62,3 +62,10 @@ Each service communicates using WebClient:
 
 Order Service → Product Service (to fetch product details)
 Cart Service → Product & Customer Service (to validate cart items)
+
+
+Redis Configuration.
+Run the local installed Radis 
+   ->radis-server
+   ->radis-cli monitoring logs.
+   ->radis-stop
