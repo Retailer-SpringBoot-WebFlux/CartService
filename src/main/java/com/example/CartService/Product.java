@@ -13,4 +13,5 @@ public class Product {
     private Long id;
     private String name;
     private BigDecimal price;
+    private boolean isFallback;
 }
