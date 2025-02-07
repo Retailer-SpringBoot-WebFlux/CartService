@@ -69,3 +69,11 @@ Run the local installed Radis
    ->radis-server
    ->radis-cli monitoring logs.
    ->radis-stop
+
+properties file 
+JAVA_OPTS=-Xms256m -Xmx1024m
+yml file
+services:
+  product-service:
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx1024m

@@ -64,16 +64,15 @@ public class CartService {
 
     private Mono<Product> fetchProductFromServiceAndCache(Long productId) {
         logger.info("Fetching product details for product ID: {}", productId);
+
         return webClientBuilder.build()
                 .get()
-                .uri("http://ProductService/products/{id}", productId)
+                .uri("lb://APIGATEWAY/products/{id}", productId)
                 .retrieve()
                 .bodyToMono(Product.class)
-                .doOnSuccess(product -> {
-                    // Cache the product in Redis
-                    redisTemplate.opsForValue().set("product:" + productId, product).subscribe();
-                    logger.info("Successfully fetched and cached product ID: {}", productId);
-                })
+                .flatMap(product -> redisTemplate.opsForValue().set("product:" + productId, product)
+                        .thenReturn(product))
+                .doOnSuccess(product -> logger.info("Successfully fetched and cached product ID: {}", productId))
                 .onErrorResume(throwable -> {
                     logger.error("Error calling Product Service for ID: {} - {}", productId, throwable.getMessage());
                     return fallbackProductResponse(productId, throwable);
