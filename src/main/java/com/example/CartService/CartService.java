@@ -66,7 +66,7 @@ public class CartService {
         logger.info("Fetching product details for product ID: {}", productId);
         return webClientBuilder.build()
                 .get()
-                .uri("http://localhost:8081/products/{id}", productId)
+                .uri("http://ProductService/products/{id}", productId)
                 .retrieve()
                 .bodyToMono(Product.class)
                 .doOnSuccess(product -> {

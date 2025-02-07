@@ -45,7 +45,7 @@ dependencies {
 	// Resilience4j (for CircuitBreaker, Retry, TimeLimiter, RateLimiter)
 	implementation 'io.github.resilience4j:resilience4j-reactor:2.2.0'
 	implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'  // ✅ Required for Resilience4j Metrics
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	// Testing dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -54,8 +54,14 @@ dependencies {
 	//Radis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	//eureka client
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
-
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.0" // Spring Cloud version
+	}
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }
