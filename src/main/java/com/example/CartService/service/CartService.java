@@ -1,5 +1,9 @@
-package com.example.CartService;
+package com.example.CartService.service;
 
+import com.example.CartService.repository.CartRepository;
+import com.example.CartService.model.Cart;
+import com.example.CartService.model.CartResponse;
+import com.example.CartService.model.Product;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
-package com.example.CartService;
+package com.example.CartService.config;
 
+import com.example.CartService.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

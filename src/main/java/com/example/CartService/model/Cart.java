@@ -1,4 +1,4 @@
-package com.example.CartService;
+package com.example.CartService.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

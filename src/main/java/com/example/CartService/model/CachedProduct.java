@@ -1,4 +1,4 @@
-package com.example.CartService;
+package com.example.CartService.model;
 
 import java.time.Instant;
 

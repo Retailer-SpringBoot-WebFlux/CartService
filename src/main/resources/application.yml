@@ -16,6 +16,11 @@ spring:
     port: 6379
   cache:
     type: redis
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-lejzqmpvoy2ep0yg.us.auth0.com/
 
 server:
   port: 8084
@@ -60,3 +65,9 @@ services:
   product-service:
     environment:
       - JAVA_OPTS=-Xms256m -Xmx1024m
+openai:
+  api:
+    url: https://api.openai.com/v1
+    key: "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"
+
+

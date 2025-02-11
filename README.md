@@ -77,3 +77,6 @@ services:
   product-service:
     environment:
       - JAVA_OPTS=-Xms256m -Xmx1024m
+
+OAuth2 verification for API.
+Used the Auth0 other option Okta but it's enterprise version.
