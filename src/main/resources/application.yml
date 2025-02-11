@@ -65,9 +65,4 @@ services:
   product-service:
     environment:
       - JAVA_OPTS=-Xms256m -Xmx1024m
-openai:
-  api:
-    url: https://api.openai.com/v1
-    key: "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"
-
 
