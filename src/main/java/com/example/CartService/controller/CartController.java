@@ -33,6 +33,7 @@ public class CartController {
         log.info("Fetching all cart details...");
         return service.getAllCartDetails()
                 .doOnComplete(() -> log.info("Successfully fetched all cart details"))
+                .switchIfEmpty(s->ResponseEntity.notFound().build())
                 .doOnError(error -> log.error("Error fetching cart details", error));
     }
 
