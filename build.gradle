@@ -59,6 +59,8 @@ dependencies {
 	//Auth0 for OAuth2 token validation for each API.
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//kafka
+	implementation 'org.springframework.kafka:spring-kafka'
 }
 dependencyManagement {
 	imports {

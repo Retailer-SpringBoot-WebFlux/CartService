@@ -21,7 +21,24 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://dev-lejzqmpvoy2ep0yg.us.auth0.com/
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: product-group
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "*"
+        spring.json.value.default.type: com.example.CartService.model.OrderEvent
 
+
+    producer:
+      retries: 5
+      acks: all
+      enable-idempotence: true
 server:
   port: 8084
 
@@ -65,4 +82,6 @@ services:
   product-service:
     environment:
       - JAVA_OPTS=-Xms256m -Xmx1024m
+
+
 

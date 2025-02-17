@@ -1,5 +1,6 @@
 package com.example.CartService.service;
 
+import com.example.CartService.model.OrderEvent;
 import com.example.CartService.repository.CartRepository;
 import com.example.CartService.model.Cart;
 import com.example.CartService.model.CartResponse;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -94,4 +96,24 @@ public class CartService {
         return Mono.just(new Product(productId, "Product is currently unavailable", BigDecimal.ZERO,
                 true));
     }
+    public Mono<Void> removeCartItem(Long customerId, Long productId) {
+        return repository.findByCustomerIdAndProductId(customerId, productId)
+                .flatMap(cartItem -> repository.delete(cartItem))
+                .doOnSuccess(removed -> System.out.println("Cart item removed for customer: " +
+                        "" + customerId))
+                .then();
+    }
+
+    @KafkaListener(topics = "order-topic", groupId = "cart-group")
+    public void consumeOrderEvent(OrderEvent event) {
+        System.out.println("Removing items from cart for Order ID: " + event.getProductId());
+
+        removeCartItem(event.getCustomerId(), event.getProductId())
+                .doOnSuccess(removed -> System.out.println("Item removed from cart"))
+                .doOnError(error -> System.err.println("Failed to remove item from cart: "
+                        + error.getMessage()))
+                .subscribe();
+    }
+
+
 }
